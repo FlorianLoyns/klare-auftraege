@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klare Aufträge | Arbeitsauftrag erstellen (Word-Export)</title>
+  <style>
+    :root{
+      --primary:#0a365d;
+      --primary-light:#1a5a8a;
+      --border:#c8d8e8;
+      --bg:#f5f7fa;
+      --text:#1a1a1a;
+      --subtle:#6b7b8d;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header{
+      background: var(--primary);
+      color:#fff;
+      padding: 20px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    header h1{font-size:20px;font-weight:700;letter-spacing:-.2px}
+    header .sub{font-size:12px;opacity:.85;margin-top:2px}
+    header .badge{
+      border:1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      white-space:nowrap;
+      text-align:right;
+    }
+    header .badge small{
+      display:block;
+      opacity:.85;
+      font-size: 11px;
+      margin-top: 2px;
+    }
+
+    .container{
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    .section{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius: 10px;
+      overflow:hidden;
+      margin-bottom: 14px;
+    }
+    .section-head{
+      padding: 10px 16px;
+      border-bottom:1px solid var(--border);
+      background:#f1f5f9;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .section-head .n{
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      background: var(--primary);
+      color:#fff;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 auto;
+      font-size: 13px;
+    }
+    .section-head h2{
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 700;
+      flex: 0 1 auto;
+    }
+    .section-head .hint-right{
+      margin-left:auto;
+      font-size: 12px;
+      color: var(--subtle);
+      font-style: italic;
+      text-align:right;
+      max-width: 55%;
+    }
+
+    .section-body{padding: 14px 16px}
+    .row{display:flex;gap:12px}
+    @media (max-width: 720px){
+      .row{flex-direction:column;gap:0}
+      .section-head{align-items:flex-start}
+      .section-head .hint-right{max-width:100%}
+    }
+    .field{flex:1;margin-bottom: 12px}
+    label{
+      display:block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    label .hint{
+      font-weight: 400;
+      color: var(--subtle);
+      font-size: 12px;
+    }
+    input[type="text"], input[type="date"], input[type="number"], textarea{
+      width: 100%;
+      border:1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 10px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      outline:none;
+      background:#fff;
+    }
+    textarea{min-height: 70px; resize: vertical}
+    input:focus, textarea:focus{
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(10,54,93,0.10);
+    }
+
+    /* Task list */
+    .task-item{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      margin-bottom: 8px;
+    }
+    .task-item .num{
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--primary);
+      color:#fff;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top: 6px;
+      flex: 0 0 auto;
+      font-size: 12px;
+    }
+    .task-item textarea{
+      flex:1;
+      min-height: 44px;
+    }
+    .task-item button{
+      border:none;
+      background:transparent;
+      color:#b7b7b7;
+      font-size: 20px;
+      cursor:pointer;
+      padding: 2px 6px;
+      margin-top: 4px;
+    }
+    .task-item button:hover{color:#d11c1c}
+
+    .add-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 7px 12px;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background:#f1f5f9;
+      color: var(--primary);
+      font-weight: 700;
+      cursor:pointer;
+    }
+    .add-btn:hover{background: var(--primary); color:#fff; border-style:solid}
+
+    .op-wrap{margin-top: 10px}
+    .op-label{
+      font-size:12px;
+      color: var(--subtle);
+      margin-bottom: 6px;
+    }
+    .op-buttons{display:flex;flex-wrap:wrap;gap:6px}
+    .op-buttons button{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius: 8px;
+      padding: 5px 10px;
+      cursor:pointer;
+      font-size: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .op-buttons button:hover{background: var(--primary); color:#fff; border-color: var(--primary)}
+
+    .qtag{
+      display:inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background:#eef3f8;
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      padding: 10px 0 22px;
+    }
+    .btn{
+      border:none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor:pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn.primary{background: var(--primary); color:#fff}
+    .btn.primary:hover{background: var(--primary-light)}
+    .btn.secondary{background:#fff;border:2px solid var(--primary);color: var(--primary)}
+    .btn.secondary:hover{background:#f1f5f9}
+
+    /* Preview overlay (minimal, similar to Word output) */
+    .overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      padding: 18px;
+      z-index: 999;
+      overflow:auto;
+    }
+    .overlay.active{display:flex;justify-content:center}
+    .preview{
+      width: 210mm;
+      max-width: 100%;
+      min-height: 297mm;
+      background:#fff;
+      padding: 20mm 18mm;
+      box-shadow: 0 8px 40px rgba(0,0,0,.25);
+      margin:auto;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .close{
+      position: fixed;
+      top: 14px; right: 14px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border:none;
+      background:#fff;
+      cursor:pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,.2);
+      font-size: 20px;
+      z-index: 1000;
+    }
+    .preview-actions{
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background:#fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      display:flex;
+      gap:10px;
+      z-index: 1000;
+    }
+
+    /* Minimal document styling for preview (KOMPAKTER) */
+    .doc{font-size:11pt; line-height:1.25; color:#000}
+    .doc .title{font-size:16pt;font-weight:700;margin:0 0 10pt;padding-bottom:6pt;border-bottom:1.5pt solid #0a365d;color:#0a365d;font-family:'Arial Narrow',Arial,sans-serif}
+    .doc .metatbl{width:100%; border-collapse:collapse; margin:0; font-size:10pt}
+    .doc .metatbl td{vertical-align:top; padding:0 0 4pt 0; font-size:10pt; color:#000}
+    .doc .metatbl .mk{width:24%; font-weight:700; padding-right:6pt; font-family:'Arial Narrow',Arial,sans-serif; color:#0a365d}
+    .doc .afterMetaSpacer{margin:0 0 6pt 0; line-height:0; font-size:0}
+    .doc .sec{margin:0 0 9pt}
+    .doc .sectrule{width:100%; border-collapse:collapse; margin:4pt 0 6pt}
+    .doc .hltbl{width:100%; border-collapse:collapse; margin:0 0 9pt}
+    .doc .hltbl td{vertical-align:top; background:#eef3f8; padding:8pt 10pt; border-radius:4pt}
+    .doc .h{font-size:12pt;font-weight:700;margin:0 0 4pt;color:#0a365d;font-family:'Arial Narrow',Arial,sans-serif}
+    .doc .p{margin:2pt 0 0 0}
+    .doc .notizline{margin:0; line-height:18pt; border-bottom:0.5pt solid #bbb}
+    .doc .notiztbl{width:100%; border-collapse:collapse; margin:0}
+    .doc .notiztbl td.notizline{height:22pt; border-bottom:0.5pt solid #bbb}
+    .doc .spacer{margin:0; line-height:0; font-size:0}
+        .doc ol{margin:0;padding-left:18pt}
+    .doc li{margin:0 0 4pt}
+    .doc .checklist{margin:0; padding-left:0; list-style:none}
+    .doc .checklist li{margin:0 0 4pt}
+    .doc .checktbl{width:100%; border-collapse:collapse; margin:0}
+    .doc .checktbl td{vertical-align:top; padding:0 0 4pt 0}
+    .doc .checktbl .box{width:14pt; padding-right:6pt}
+    .doc .numtbl{width:100%; border-collapse:collapse; margin:0}
+    .doc .numtbl td{vertical-align:top; padding:0 0 4pt 0}
+    .doc .numtbl .n{width:24pt; padding-left:8pt; padding-right:4pt}
+
+    @media print{
+      body *{display:none !important;}
+      .overlay, .overlay *{display:block !important;}
+      .overlay{position:static !important;background:none !important;padding:0 !important;}
+      .close, .preview-actions{display:none !important;}
+      .preview{box-shadow:none !important;width:100% !important;min-height:auto !important;margin:0 !important;padding: 15mm !important;}
+    }
+  
+    /* Operator taxonomy (subtle, no color-coding required) */
+    .op-groups{display:flex;flex-direction:column;gap:10px}
+    .op-group{border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff}
+    .op-group-title{font-size:12px;font-weight:700;color:var(--primary);margin:0 0 8px}
+    .op-group-sub{font-size:12px;color:var(--subtle);font-weight:400}
+    .op-buttons{display:flex;flex-wrap:wrap;gap:6px}
+
+    .app-footer{
+      text-align:center;
+      padding:10px 16px 24px;
+      font-size:11px;
+      color:var(--subtle);
+      line-height:1.7;
+    }
+    .app-footer .divider{
+      width:60px;
+      height:2px;
+      background:var(--primary);
+      margin:0 auto 12px;
+      border-radius:2px;
+      opacity:.25;
+    }
+    .app-footer a{color:var(--primary-light);text-decoration:none}
+    .app-footer a:hover{text-decoration:underline}
+    .app-footer p{margin:0}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Klare Aufträge</h1>
+    <div class="sub">Evidenzbasierte Vorlage nach Hattie, Bloom &amp; KMK-Anforderungsbereichen</div>
+  </div>
+  <div class="badge">✦ Nach Hattie | 6-W-Methode | Operatoren</div>
+</header>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-head"><div class="n">1</div><h2>Allgemeine Angaben</h2></div>
+    <div class="section-body">
+      <div class="field">
+        <label for="titel">Titel des Arbeitsauftrags</label>
+        <input type="text" id="titel" placeholder="z.B. Pflegeplanung nach PES erstellen" />
+      </div>
+
+      <div class="field">
+        <label for="lernfeld">Lernfeld / Modul / Curriculare Einheit</label>
+        <input type="text" id="lernfeld" placeholder="z.B. CE 05 – Menschen in kurativen Prozessen unterstützen" />
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="kurs">Kurs / Klasse</label>
+          <input type="text" id="kurs" placeholder="z.B. PFF 24a" />
+        </div>
+        <div class="field">
+          <label for="datum">Datum</label>
+          <input type="date" id="datum" />
+        </div>
+        <div class="field">
+          <label for="dozent">Dozent/in</label>
+          <input type="text" id="dozent" placeholder="Name" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="n">2</div>
+      <h2>Lernziel &amp; Erfolgskriterien</h2>
+      <div class="hint-right">Hattie: „Teacher Clarity" – höchste Effektstärke</div>
+    </div>
+    <div class="section-body">
+      <div class="field">
+        <label for="lernziel">Lernziel <span class="hint">– „Die Lernenden können …“</span></label>
+        <textarea id="lernziel" placeholder="Die Lernenden können …"></textarea>
+      </div>
+      <div class="field">
+        <label for="erfolgskriterien">Erfolgskriterien <span class="hint">– Woran erkennt man „gut“?</span></label>
+        <textarea id="erfolgskriterien" placeholder="z.B. vollständig, fachlich korrekt, begründet, strukturiert …"></textarea>
+      </div>
+      <div class="field">
+        <label>Anforderungsbereich <span class="hint">– Kognitive Taxonomiestufe (Bloom / KMK)</span></label>
+        <div class="row" style="gap:10px;">
+          <div class="field" style="margin-bottom:0">
+            <label style="font-weight:400;color:var(--text)"><input type="checkbox" name="afb" value="AFB I – Reproduktion" /> AFB I – Reproduktion</label>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label style="font-weight:400;color:var(--text)"><input type="checkbox" name="afb" value="AFB II – Reorganisation/Transfer" /> AFB II – Reorganisation/Transfer</label>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label style="font-weight:400;color:var(--text)"><input type="checkbox" name="afb" value="AFB III – Reflexion/Bewertung" /> AFB III – Reflexion/Bewertung</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="n">3</div>
+      <h2>Ausgangssituation (optional)</h2>
+      <div class="hint-right">Grell &amp; Grell: Sinnhorizont als Motivationsvoraussetzung</div>
+    </div>
+    <div class="section-body">
+      <div class="field" style="margin-bottom:0">
+        <label for="einstieg">Kurzbeschreibung / Fall / Kontext</label>
+        <textarea id="einstieg" placeholder="z.B. Fallbeispiel …"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="n">4</div>
+      <h2>Aufgabenstellung</h2>
+      <div class="hint-right">6-W-Struktur: WAS? MIT WEM? WOMIT? WIE? WIE LANGE? WER?</div>
+    </div>
+    <div class="section-body">
+
+      <div class="field">
+        <label>WAS? / Arbeitsschritte <span class="hint">– klare Hauptsätze, mit Operatoren</span></label>
+        <div id="aufgaben-list">
+          <div class="task-item" data-index="1">
+            <div class="num">1</div>
+            <textarea placeholder="z.B. Lesen Sie das Fallbeispiel aufmerksam durch."></textarea>
+            <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+          </div>
+          <div class="task-item" data-index="2">
+            <div class="num">2</div>
+            <textarea placeholder="z.B. Ermitteln Sie drei Pflegeprobleme und begründen Sie diese kurz."></textarea>
+            <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+          </div>
+          <div class="task-item" data-index="3">
+            <div class="num">3</div>
+            <textarea placeholder="z.B. Formulieren Sie passende Pflegeziele und Maßnahmen."></textarea>
+            <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+          </div>
+        </div>
+
+        <button class="add-btn" type="button" onclick="addTask()">+ Schritt hinzufügen</button>
+
+        
+<div class="op-wrap">
+  <div class="op-label">Operator einfügen (klicken = in das zuletzt aktive Aufgabenfeld)</div>
+
+  <div class="op-groups">
+    <div class="op-group">
+      <div class="op-group-title">AFB I <span class="op-group-sub">– Reproduktion</span></div>
+      <div class="op-buttons">
+        <button type="button" onclick="insertOp('Nennen Sie')">nennen</button>
+        <button type="button" onclick="insertOp('Beschreiben Sie')">beschreiben</button>
+        <button type="button" onclick="insertOp('Stellen Sie dar')">darstellen</button>
+        <button type="button" onclick="insertOp('Fassen Sie zusammen')">zusammenfassen</button>
+      </div>
+    </div>
+
+    <div class="op-group">
+      <div class="op-group-title">AFB II <span class="op-group-sub">– Reorganisation/Transfer</span></div>
+      <div class="op-buttons">
+        <button type="button" onclick="insertOp('Erklären Sie')">erklären</button>
+        <button type="button" onclick="insertOp('Erläutern Sie')">erläutern</button>
+        <button type="button" onclick="insertOp('Vergleichen Sie')">vergleichen</button>
+        <button type="button" onclick="insertOp('Analysieren Sie')">analysieren</button>
+        <button type="button" onclick="insertOp('Ordnen Sie ein')">einordnen</button>
+        <button type="button" onclick="insertOp('Ermitteln Sie')">ermitteln</button>
+      </div>
+    </div>
+
+    <div class="op-group">
+      <div class="op-group-title">AFB III <span class="op-group-sub">– Reflexion/Bewertung</span></div>
+      <div class="op-buttons">
+        <button type="button" onclick="insertOp('Begründen Sie')">begründen</button>
+        <button type="button" onclick="insertOp('Beurteilen Sie')">beurteilen</button>
+        <button type="button" onclick="insertOp('Bewerten Sie')">bewerten</button>
+        <button type="button" onclick="insertOp('Erörtern Sie')">erörtern</button>
+        <button type="button" onclick="insertOp('Entwickeln Sie')">entwickeln</button>
+        <button type="button" onclick="insertOp('Nehmen Sie Stellung zu')">Stellung nehmen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div class="field">
+        <label for="sozialform">MIT WEM? / Sozialform</label>
+        <input type="text" id="sozialform" placeholder="z.B. Einzelarbeit / Partnerarbeit / Gruppen à 3–4" />
+      </div>
+
+      <div class="field">
+        <label for="materialien">WOMIT? / Materialien</label>
+        <textarea id="materialien" placeholder="z.B. Fallbeispiel (AB), Lehrbuch S. 12–14, PES-Schema …"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="wie">WIE? / Vorgehen / Methode <span class="hint">– z.B. Bearbeitungsform, Struktur, Leitfragen</span></label>
+        <textarea id="wie" placeholder="z.B. Arbeiten Sie mit dem PES-Schema, nutzen Sie die Stichwortliste …"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="zeit_min">WIE LANGE? / Zeitrahmen (Minuten)</label>
+          <input type="number" id="zeit_min" min="1" placeholder="z.B. 45" />
+        </div>
+        <div class="field">
+          <label for="zeit_hinweis">Zeit-Hinweis (optional)</label>
+          <input type="text" id="zeit_hinweis" placeholder="z.B. 10 lesen, 25 bearbeiten, 10 Austausch" />
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:0">
+        <label for="ergebnis">WER? / Ergebnissicherung <span class="hint">– Wer stellt vor? Wie wird gesichert?</span></label>
+        <textarea id="ergebnis" placeholder="z.B. Abgabe als Tabelle / Kurzpräsentation / Plakat …"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="n">5</div>
+      <h2>Differenzierung &amp; Hinweise (optional)</h2>
+      <div class="hint-right">Optional – für leistungsheterogene Gruppen</div>
+    </div>
+    <div class="section-body">
+      <div class="field">
+        <label for="differenzierung">Differenzierung</label>
+        <textarea id="differenzierung" placeholder="z.B. Hilfekarten / Zusatzaufgabe / gestufte Hinweise …"></textarea>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="hinweise">Hinweise</label>
+        <textarea id="hinweise" placeholder="z.B. Bewertung, Abgabeformat, Bezug Praxis …"></textarea>
+      </div>
+      <div class="field" style="margin-bottom:0;margin-top:10px">
+        <label style="font-weight:400;color:var(--text)"><input type="checkbox" id="notizen"> Notizfeld am Ende anfügen</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" type="button" onclick="generatePreview()">▶ Vorschau</button>
+    <button class="btn primary" type="button" onclick="downloadWord()">⬇ Word (.doc)</button>
+    <button class="btn secondary" type="button" onclick="saveToFile()">Speichern</button>
+    <button class="btn secondary" type="button" onclick="loadFromFile()">Laden</button>
+    <button class="btn secondary" type="button" onclick="clearForm()">↺ Leeren</button>
+  </div>
+
+  <footer class="app-footer">
+    <div class="divider"></div>
+    <p>Erstellt von Florian Loyns · <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT-Lizenz</a></p>
+    <p>DSGVO-konform · Keine Datenübertragung · Alle Inhalte verbleiben ausschließlich auf Ihrem Endgerät</p>
+  </footer>
+</div>
+
+
+<!-- Import file picker -->
+<input type="file" id="importFile" accept="application/json,.json" style="position:fixed;left:-10000px;top:auto;width:1px;height:1px;opacity:0;" />
+
+
+<!-- PREVIEW OVERLAY -->
+<div class="overlay" id="overlay">
+  <button class="close" type="button" onclick="closePreview()">✕</button>
+  <div class="preview" id="previewContent"></div>
+  <div class="preview-actions">
+    <button class="btn primary" type="button" onclick="downloadWord()">⬇ Word (.doc)</button>
+    <button class="btn secondary" type="button" onclick="closePreview()">Schließen</button>
+  </div>
+</div>
+
+<script>
+  // ----------------- Safety helpers (avoid HTML injection) -----------------
+  function escapeHtml(str) {
+    return (str || '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+  function nl2brSafe(str) {
+    return escapeHtml(str).replace(/\n/g, '<br>');
+  }
+
+  // Split textarea into list items (supports "- item" or one item per line)
+  function toListItems(text) {
+    return (text || '')
+      .split(/\r?\n/)
+      .map(l => l.trim())
+      .filter(Boolean)
+      .map(l => l.replace(/^[-•*]\s+/, ''));
+  }
+
+
+  // ----------------- Utilities -----------------
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+
+  // Track last focused task textarea for operator insertion
+  let lastFocusedTextarea = null;
+  document.addEventListener('focusin', (e) => {
+    if (e.target.tagName === 'TEXTAREA' && e.target.closest('.task-item')) {
+      lastFocusedTextarea = e.target;
+    }
+  });
+
+  // Set today's date
+  document.getElementById('datum').valueAsDate = new Date();
+
+  // ----------------- Task list -----------------
+  function addTask() {
+    const list = document.getElementById('aufgaben-list');
+    const items = list.querySelectorAll('.task-item');
+    const idx = items.length + 1;
+    const div = document.createElement('div');
+    div.className = 'task-item';
+    div.dataset.index = idx;
+    div.innerHTML = `
+      <div class="num">${idx}</div>
+      <textarea placeholder="Arbeitsschritt ${idx} …"></textarea>
+      <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+    `;
+    list.appendChild(div);
+    div.querySelector('textarea').focus();
+  }
+
+  function removeTask(btn) {
+    const item = btn.closest('.task-item');
+    const list = document.getElementById('aufgaben-list');
+    if (list.querySelectorAll('.task-item').length > 1) {
+      item.remove();
+      renumberTasks();
+    }
+  }
+
+  function renumberTasks() {
+    const items = document.querySelectorAll('#aufgaben-list .task-item');
+    items.forEach((item, i) => {
+      item.dataset.index = i + 1;
+      item.querySelector('.num').textContent = i + 1;
+    });
+  }
+
+  function insertOp(op) {
+    const insert = op + ' ';
+    if (lastFocusedTextarea) {
+      const start = lastFocusedTextarea.selectionStart;
+      const end = lastFocusedTextarea.selectionEnd;
+      const text = lastFocusedTextarea.value;
+      lastFocusedTextarea.value = text.substring(0, start) + insert + text.substring(end);
+      lastFocusedTextarea.focus();
+      lastFocusedTextarea.selectionStart = lastFocusedTextarea.selectionEnd = start + insert.length;
+      return;
+    }
+    const items = document.querySelectorAll('#aufgaben-list .task-item textarea');
+    if (items.length) {
+      const last = items[items.length - 1];
+      last.value += (last.value ? ' ' : '') + insert;
+      last.focus();
+      lastFocusedTextarea = last;
+    }
+  }
+
+  // ----------------- Data -----------------
+  function getFormData() {
+    const afbs = [];
+    document.querySelectorAll('input[name="afb"]:checked').forEach(cb => afbs.push(cb.value));
+
+    const aufgaben = [];
+    document.querySelectorAll('#aufgaben-list .task-item textarea').forEach(ta => {
+      if (ta.value.trim()) aufgaben.push(ta.value.trim());
+    });
+
+    return {
+      titel: document.getElementById('titel').value || 'Arbeitsauftrag',
+      lernfeld: document.getElementById('lernfeld').value,
+      kurs: document.getElementById('kurs').value,
+      datum: document.getElementById('datum').value,
+      dozent: document.getElementById('dozent').value,
+      lernziel: document.getElementById('lernziel').value,
+      erfolgskriterien: document.getElementById('erfolgskriterien').value,
+      afb: afbs.join(', '),
+      einstieg: document.getElementById('einstieg').value,
+      aufgaben: aufgaben,
+      sozialform: document.getElementById('sozialform').value,
+      materialien: document.getElementById('materialien').value,
+      wie: document.getElementById('wie').value,
+      zeit_min: document.getElementById('zeit_min').value,
+      zeit_hinweis: document.getElementById('zeit_hinweis').value,
+      ergebnis: document.getElementById('ergebnis').value,
+      differenzierung: document.getElementById('differenzierung').value,
+      hinweise: document.getElementById('hinweise').value,
+      notizen: document.getElementById('notizen').checked,
+    };
+  }
+
+  // ----------------- Word-stable document HTML -----------------
+  function generateDocHTMLWord(data) {
+    const titel = escapeHtml(data.titel || 'Arbeitsauftrag');
+
+    const ekItems = toListItems(data.erfolgskriterien);
+    const ekRows = ekItems.map(item => '<tr><td class="box">☐</td><td>' + escapeHtml(item) + '</td></tr>').join('');
+    const ekTableHtml = ekItems.length ? `
+          <table class="checktbl" cellpadding="0" cellspacing="0" role="presentation">
+            ${ekRows}
+          </table>` : '';
+
+    let zeitText = '';
+    if (data.zeit_min) zeitText = `${escapeHtml(String(data.zeit_min))} Minuten`;
+    if (data.zeit_hinweis) zeitText += (zeitText ? ' – ' : '') + escapeHtml(data.zeit_hinweis);
+
+    const metaRows = [
+      data.lernfeld ? `<tr><td class="mk">Lernfeld / Modul</td><td>${escapeHtml(data.lernfeld)}</td></tr>` : '',
+      data.kurs ? `<tr><td class="mk">Kurs / Klasse</td><td>${escapeHtml(data.kurs)}</td></tr>` : '',
+      data.datum ? `<tr><td class="mk">Datum</td><td>${escapeHtml(formatDate(data.datum))}</td></tr>` : '',
+      data.dozent ? `<tr><td class="mk">Dozent/in</td><td>${escapeHtml(data.dozent)}</td></tr>` : '',
+      data.afb ? `<tr><td class="mk">Anforderungsbereich</td><td>${escapeHtml(data.afb)}</td></tr>` : '',
+      data.sozialform ? `<tr><td class="mk">Sozialform</td><td>${escapeHtml(data.sozialform)}</td></tr>` : '',
+      zeitText ? `<tr><td class="mk">Zeitrahmen</td><td>${zeitText}</td></tr>` : '',
+      data.materialien ? `<tr><td class="mk">Materialien</td><td>${nl2brSafe(data.materialien)}</td></tr>` : '',
+      data.wie ? `<tr><td class="mk">Vorgehen</td><td>${nl2brSafe(data.wie)}</td></tr>` : '',
+      data.ergebnis ? `<tr><td class="mk">Ergebnissicherung</td><td>${nl2brSafe(data.ergebnis)}</td></tr>` : '',
+    ].filter(Boolean).join('');
+
+    const aufgaben = (data.aufgaben || [])
+      .filter(a => a && a.trim())
+      .map((a,i) => `<tr><td class="n">${i+1}.</td><td class="t">${nl2brSafe(a.trim())}</td></tr>`)
+      .join('');
+
+    return `
+      <div class="doc">
+        <div class="title">${titel}</div>
+
+        ${metaRows ? `
+        <table class="metatbl" cellpadding="0" cellspacing="0" role="presentation">
+          ${metaRows}
+        </table><div class="afterMetaSpacer">&nbsp;</div>` : ''}
+
+        ${(data.lernziel || ekItems.length) ? `
+        <table class="hltbl" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+          <tr><td bgcolor="#eef3f8" style="background:#eef3f8; padding:8pt 10pt;">
+          ${data.lernziel ? `
+          <p class="h">Lernziel</p>
+          <p class="p">${nl2brSafe(data.lernziel)}</p>` : ''}
+          ${(data.lernziel && ekItems.length) ? `<p style="margin:0;line-height:6pt;font-size:0;mso-line-height-rule:exactly;">&nbsp;</p>` : ''}
+          ${ekItems.length ? `
+          <p class="h">Das wird erwartet</p>
+          ${ekTableHtml}` : ''}
+          </td></tr>
+        </table><div class="afterMetaSpacer">&nbsp;</div>` : ''}
+
+        ${data.einstieg ? `
+        <div class="sec">
+          <p class="h">Situation</p>
+          <p class="p">${nl2brSafe(data.einstieg)}</p>
+        </div>` : ''}
+
+        ${aufgaben ? `
+        <div class="sec">
+          <p class="h">Arbeitsaufträge</p>
+          <table class="numtbl" cellpadding="0" cellspacing="0" role="presentation">${aufgaben}</table>
+        </div>` : ''}
+
+        ${((data.differenzierung && data.differenzierung.trim()) || data.hinweise || data.notizen) ? `
+        <table class="sectrule" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+          <tr><td style="border-top:0.75pt solid #ccc;height:0;line-height:0;font-size:0;padding:0 0 6pt 0;">&nbsp;</td></tr>
+        </table>` : ''}
+
+        ${(data.differenzierung && data.differenzierung.trim()) ? `
+        <div class="sec">
+          <p class="h">Vertiefung</p>
+          <p class="p">${nl2brSafe(data.differenzierung)}</p>
+        </div>` : ''}
+
+        ${data.hinweise ? `
+        <div class="sec">
+          <p class="h">Tipps</p>
+          <p class="p">${nl2brSafe(data.hinweise)}</p>
+        </div>` : ''}
+
+        ${data.notizen ? `
+        <div class="sec">
+          <p class="h">Notizen</p>
+          <table class="notiztbl" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+            <tr><td class="notizline">&nbsp;</td></tr>
+            <tr><td class="notizline">&nbsp;</td></tr>
+            <tr><td class="notizline">&nbsp;</td></tr>
+            <tr><td class="notizline">&nbsp;</td></tr>
+          </table>
+        </div>` : ''}
+
+      </div>
+    `;
+  }
+
+  // ----------------- Preview -----------------
+  function generatePreview() {
+    const data = getFormData();
+    document.getElementById('previewContent').innerHTML = generateDocHTMLWord(data);
+    document.getElementById('overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePreview() {
+    document.getElementById('overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close preview on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePreview();
+  });
+
+  // ----------------- Word export (.doc) -----------------
+  function downloadWord() {
+    const data = getFormData();
+    const bodyHtml = generateDocHTMLWord(data);
+
+    const wordCss = `
+      @page Section1 {
+size: 595.3pt 841.9pt; /* A4 */
+        margin: 56.7pt 51.0pt 56.7pt 51.0pt; /* top right bottom left ~ 20mm/18mm */
+        mso-footer: f1;
+      }
+      div.Section1 { page: Section1; }
+      html, body { margin: 0; padding: 0; }
+
+      body { margin: 0; padding: 0; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-size: 11pt; line-height: 1.25; color: #000; }
+      .doc { width: 100%; }
+      .title { font-size: 16pt; font-weight: bold; margin: 0 0 10pt 0; padding-bottom: 6pt; border-bottom: 1.5pt solid #0a365d; color: #0a365d; font-family: 'Arial Narrow', Arial, sans-serif; }
+      .meta { width: 100%; border-collapse: collapse; margin: 0 0 8pt 0; }
+      .meta td { font-size: 10pt; vertical-align: top; padding: 0.1cm 0cm 0.1cm 0cm; color: #000; mso-padding-alt: 0.1cm 0cm 0.1cm 0cm; }
+      .meta .k { width: 24%; font-weight: bold; padding-right: 6pt; color: #000; }
+      .meta .v { }
+      .sec { margin: 0 0 9pt 0; }
+      .hltbl { width: 100%; border-collapse: collapse; margin: 0 0 9pt 0; }
+      .hltbl td { vertical-align: top; }
+      .h { font-size: 12pt; font-weight: bold; margin: 0 0 4pt 0; mso-para-margin-bottom: 4pt; mso-para-space-after: 0pt; mso-line-height-rule: exactly; color: #0a365d; font-family: 'Arial Narrow', Arial, sans-serif; }
+      .p { margin: 2pt 0 0 0; mso-para-margin-top: 2pt; }
+      .notizline { margin: 0; line-height: 18pt; border-bottom: 0.5pt solid #bbb; }
+      .notiztbl { width: 100%; border-collapse: collapse; margin: 0; }
+      .notiztbl td.notizline { height: 22pt; border-bottom: 0.5pt solid #bbb; }
+      ol { margin: 0; padding-left: 18pt; }
+      li { margin: 0 0 4pt 0; }
+    
+    
+      /* Footer (Word HTML) */
+      p.MsoFooter, li.MsoFooter, div.MsoFooter {
+        margin: 0in;
+        margin-bottom: .0001pt;
+        mso-pagination: widow-orphan;
+        tab-stops: right 7.6in;
+        font-size: 8pt;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #666;
+      }
+      table#hrdftrtbl { margin:0in 0in 0in 9.0in; } /* push header/footer container off-page */
+      .footerRule { border-top: 1pt solid #ccc; padding-top: 4pt; }
+
+      
+      .checklist { margin: 0; padding-left: 0; list-style: none; }
+      .checklist li { margin: 0 0 4pt 0; }
+
+      .checktbl { width: 100%; border-collapse: collapse; margin: 0; }
+      .checktbl td { vertical-align: top; padding: 0 0 4pt 0; mso-padding-alt: 0.1cm 0cm 0.1cm 0cm; }
+      .checktbl .box { width: 14pt; padding-right: 6pt; }
+
+      .metatbl { width: 100%; border-collapse: collapse; margin: 0; font-size: 10pt; }
+      .metatbl td { vertical-align: top; padding: 0 0 4pt 0; mso-padding-alt: 0.1cm 0cm 0.1cm 0cm; font-size: 10pt; color: #000; }
+      .metatbl .mk { width: 24%; font-weight: bold; padding-right: 6pt; font-family: 'Arial Narrow', Arial, sans-serif; color: #0a365d; }
+      .metatbl p, .metatbl div, .metatbl span { font-size: 10pt; }
+
+      .numtbl { width: 100%; border-collapse: collapse; margin: 0; }
+      .numtbl td { vertical-align: top; padding: 0 0 4pt 0; mso-padding-alt: 0.1cm 0cm 0.1cm 0cm; }
+      .numtbl .n { width: 24pt; padding-left: 8pt; padding-right: 4pt; mso-padding-alt: 0.1cm 0.1cm 0.1cm 0.2cm; }
+      .numtbl .t { }
+
+      .afterMetaSpacer { margin: 0 0 6pt 0; line-height: 0; font-size: 0; }
+
+      .metaruleTbl td { border-top: 1.5pt solid #999; height: 0; line-height: 0; font-size: 0; padding: 0; mso-padding-alt: 0.1cm 0cm 0.1cm 0cm; }
+
+      
+      .spacer { margin: 0; line-height: 0; font-size: 0; }
+`;
+
+    const fullHtml = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office"
+            xmlns:w="urn:schemas-microsoft-com:office:word"
+            xmlns="http://www.w3.org/TR/REC-html40">
+      <head>
+        <meta charset="UTF-8">
+        <title>${escapeHtml(data.titel || 'Arbeitsauftrag')}</title>
+        <style>${wordCss}</style>
+        <!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->
+      </head>
+      <body><div class="Section1">${bodyHtml}</div>
+<table id="hrdftrtbl" border="0" cellspacing="0" cellpadding="0">
+  <tr><td>
+    <div style="mso-element:footer" id="f1">
+      <p class="MsoFooter footerRule">Dokumentvorlage für Arbeitsaufträge: Hattie (Teacher Clarity), AFB-Orientierung (KMK/Bloom) und 6-W-Struktur<span style="mso-tab-count:1"></span>Seite <span style="mso-field-code:' PAGE '"></span> / <span style="mso-field-code:' NUMPAGES '"></span></p>
+    </div>
+  </td></tr>
+</table>
+</body>
+      </html>`;
+
+    const blob = new Blob(['\ufeff', fullHtml], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+
+    const safeName = (data.titel || 'Arbeitsauftrag')
+      .replace(/[^a-zA-Z0-9äöüÄÖÜß\s-]/g, '')
+      .replace(/\s+/g, '_')
+      .slice(0, 80);
+
+    a.download = (safeName || 'Arbeitsauftrag') + '.doc';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // ----------------- Save/Load (JSON file) -----------------
+  // Speichern: lädt eine .json-Datei herunter (funktioniert zuverlässig auch ohne LocalStorage)
+  function saveToFile() {
+    const data = getFormData();
+    const payload = {
+      _type: "arbeitsauftrag_generator",
+      _version: 1,
+      savedAt: new Date().toISOString(),
+      data
+    };
+
+    const safeName = (data.titel || 'Arbeitsauftrag')
+      .replace(/[^a-zA-Z0-9äöüÄÖÜß\s-]/g, '')
+      .replace(/\s+/g, '_')
+      .slice(0, 80);
+
+    const fileName = (safeName || 'Arbeitsauftrag') + '.json';
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    // optional: zusätzlich lokal merken (falls verfügbar)
+    try { localStorage.setItem('arbeitsauftrag_minimal_v5', JSON.stringify(data)); } catch(e) {}
+  }
+
+  // Laden: entweder aus LocalStorage (falls vorhanden) oder aus einer .json-Datei
+  function loadFromFile() {
+    // Datei auswählen (iOS/Safari mag kein display:none, daher off-screen input)
+    const input = document.getElementById('importFile');
+    if (!input) { alert('Import-Feld fehlt im Dokument.'); return; }
+    input.value = '';
+    try {
+      input.click();
+    } catch (e) {
+      // Fallback: wenn der Dateidialog blockiert wird, versuche lokal
+      try {
+        const raw = localStorage.getItem('arbeitsauftrag_minimal_v5');
+        if (raw) {
+          const data = JSON.parse(raw);
+          applyDataToForm(data);
+          alert('Geladen (lokal).');
+          return;
+        }
+      } catch(err) {}
+      alert('Dateidialog konnte nicht geöffnet werden.');
+    }
+  }
+
+  // Optional: Lokales Laden (wenn du es doch willst)
+  function loadLocal() {
+    try {
+      const raw = localStorage.getItem('arbeitsauftrag_minimal_v5');
+      if (!raw) { alert('Keine lokalen Daten gefunden.'); return; }
+      const data = JSON.parse(raw);
+      applyDataToForm(data);
+      alert('Geladen (lokal).');
+    } catch(e) {
+      alert('Konnte lokale Daten nicht laden.');
+    }
+  }
+
+  // 2) Datei-Import (JSON)
+  // Datei-Import (JSON)
+  document.getElementById('importFile').addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    try {
+      let text = '';
+      if (file.text) {
+        text = await file.text();
+      } else {
+        text = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ''));
+          reader.onerror = () => reject(new Error('read failed'));
+          reader.readAsText(file);
+        });
+      }
+      const payload = JSON.parse(text);
+
+      // akzeptiere entweder "payload.data" oder direkt die Formdaten
+      const data = payload && payload.data ? payload.data : payload;
+
+      if (!data || typeof data !== 'object') {
+        alert('Dateiinhalt ist nicht gültig.');
+        return;
+      }
+
+      applyDataToForm(data);
+      alert('Geladen (Datei).');
+
+      // optional: lokal merken
+      try { localStorage.setItem('arbeitsauftrag_minimal_v5', JSON.stringify(data)); } catch(err) {}
+    } catch (err) {
+      alert('Konnte die Datei nicht lesen. Bitte eine gültige .json-Datei auswählen.');
+    }
+  });
+
+  // Form befüllen (gemeinsamer Helfer)
+  function applyDataToForm(data) {
+    document.getElementById('titel').value = data.titel || '';
+    document.getElementById('lernfeld').value = data.lernfeld || '';
+    document.getElementById('kurs').value = data.kurs || '';
+    document.getElementById('datum').value = data.datum || '';
+    document.getElementById('dozent').value = data.dozent || '';
+    document.getElementById('lernziel').value = data.lernziel || '';
+    document.getElementById('erfolgskriterien').value = data.erfolgskriterien || '';
+    document.getElementById('einstieg').value = data.einstieg || '';
+    document.getElementById('sozialform').value = data.sozialform || '';
+    document.getElementById('materialien').value = data.materialien || '';
+    document.getElementById('wie').value = data.wie || '';
+    document.getElementById('zeit_min').value = data.zeit_min || '';
+    document.getElementById('zeit_hinweis').value = data.zeit_hinweis || '';
+    document.getElementById('ergebnis').value = data.ergebnis || '';
+    document.getElementById('differenzierung').value = data.differenzierung || '';
+    document.getElementById('hinweise').value = data.hinweise || '';
+    document.getElementById('notizen').checked = !!data.notizen;
+
+    // AFB checkboxes
+    document.querySelectorAll('input[name="afb"]').forEach(cb => cb.checked = false);
+    if (data.afb) {
+      data.afb.split(',').map(x => x.trim()).forEach(v => {
+        const cb = Array.from(document.querySelectorAll('input[name="afb"]')).find(c => c.value === v);
+        if (cb) cb.checked = true;
+      });
+    }
+
+    // tasks
+    const list = document.getElementById('aufgaben-list');
+    list.innerHTML = '';
+    const tasks = (data.aufgaben && data.aufgaben.length) ? data.aufgaben : ['','',''];
+    tasks.forEach((t, i) => {
+      const idx = i + 1;
+      const div = document.createElement('div');
+      div.className = 'task-item';
+      div.dataset.index = idx;
+      div.innerHTML = `
+        <div class="num">${idx}</div>
+        <textarea placeholder="Arbeitsschritt ${idx} …"></textarea>
+        <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+      `;
+      div.querySelector('textarea').value = t || '';
+      list.appendChild(div);
+    });
+    renumberTasks();
+  }
+
+function clearForm() {
+    if (!confirm('Möchten Sie wirklich alle Felder leeren?')) return;
+
+    document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => el.value = '');
+    document.querySelectorAll('input[name="afb"]').forEach(el => el.checked = false);
+    document.getElementById('notizen').checked = false;
+    document.getElementById('datum').valueAsDate = new Date();
+
+    const list = document.getElementById('aufgaben-list');
+    list.innerHTML = '';
+    for (let i = 1; i <= 3; i++) {
+      const div = document.createElement('div');
+      div.className = 'task-item';
+      div.dataset.index = i;
+      div.innerHTML = `
+        <div class="num">${i}</div>
+        <textarea placeholder="Arbeitsschritt ${i} …"></textarea>
+        <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+      `;
+      list.appendChild(div);
+    }
+    renumberTasks();
+  }
+</script>
+
+</body>
+</html>
