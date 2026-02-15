@@ -3,7 +3,7 @@
 Evidenzbasierte Vorlage für strukturierte Arbeitsaufträge (nicht nur) in der Pflegeausbildung.  
 Eine HTML-Datei, kein Server, kein Account.
 
-**[Hier klicken, um die Vorlage direkt online auszuprobieren!](https://florianloyns.github.io/klare-auftraege.html)**
+**[Hier klicken, um die Vorlage direkt online auszuprobieren!](https://FlorianLoyns.github.io/klare-auftraege.html)**
 
 ## Worum geht's?
 
