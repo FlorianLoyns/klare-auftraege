@@ -23,7 +23,7 @@ Dieses Tool gibt eine Struktur vor, die das erzwingt: Lernziel und Erfolgskriter
 
 ## Schnellstart
 
-1. [`klare-auftraege.html`](klare-auftraege.html) herunterladen (oder [online testen](https://florianloyns.github.io/klare-auftraege/index.html))
+1. [`klare-auftraege.html`](index.html) herunterladen (oder [online testen](https://florianloyns.github.io/klare-auftraege/index.html))
 2. Im Browser öffnen
 3. Ausfüllen, Vorschau prüfen, als Word exportieren
 
