@@ -3,7 +3,7 @@
 Evidenzbasierte Vorlage für strukturierte Arbeitsaufträge (nicht nur) in der Pflegeausbildung.  
 Eine HTML-Datei, kein Server, kein Account.
 
-**[Hier klicken, um die Vorlage direkt online auszuprobieren!](https://florianloyns.github.io/klare-auftraege/)**
+**[Hier klicken, um die Vorlage direkt online auszuprobieren!](https://florianloyns.github.io/klare-auftraege.html)**
 
 ## Worum geht's?
 
@@ -45,24 +45,6 @@ Dieses Tool gibt eine Struktur vor, die das erzwingt: Lernziel und Erfolgskriter
 **Hattie** – Teacher Clarity (d = 0.75): Lernziel und Erfolgskriterien explizit formulieren.  
 **Bloom / KMK** – Operatoren nach Anforderungsbereichen I–III für die bewusste Wahl des kognitiven Niveaus.  
 **6-W-Methode** – WAS? MIT WEM? WOMIT? WIE? WIE LANGE? WER?
-
-## Sprachsensibel formulieren (DaZ)
-
-Die Überschriften im Word-Export sind bewusst alltagsnah gewählt – auch für Lernende mit Deutsch als Zweitsprache:
-
-| Fachbegriff | Im Export | Warum |
-|---|---|---|
-| Erfolgskriterien | Das wird erwartet | Kompositum aufgelöst |
-| Ausgangssituation | Situation | Kürzer, bekanntes Wort |
-| Differenzierung | Vertiefung | Intuitiv verständlich |
-| Hinweise | Tipps | In vielen Sprachen bekannt |
-
-Beim Formulieren der Aufträge selbst helfen ein paar Grundsätze:
-
-- Kurze Sätze, ein Operator pro Aufgabenschritt
-- Fremdwörter vermeiden, wenn ein deutsches Wort existiert („zuordnen" statt „extrahieren")
-- Abstrakte Konzepte beim ersten Auftreten erklären 
-- Konkrete Beispiele direkt im Aufgabentext, nicht nur in Begleitmaterial
 
 ## Lizenz
 
