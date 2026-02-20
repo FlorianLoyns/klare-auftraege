@@ -3,44 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Klare Aufträge | Arbeitsauftrag erstellen (Word-Export)</title>
+  <title>Klare Aufträge | Arbeitsauftrag erstellen (Word- &amp; PDF-Export)</title>
   <style>
     :root{
-      --primary:#0a365d;
-      --primary-light:#1a5a8a;
-      --border:#c8d8e8;
-      --bg:#f5f7fa;
-      --text:#1a1a1a;
-      --subtle:#6b7b8d;
+      --primary:#000000;
+      --primary-light:#333333;
+      --accent:#222222;
+      --accent-hover:#444444;
+      --border:#000000;
+      --border-light:#ddd;
+      --bg:#ffffff;
+      --muted:#f7f7f7;
+      --text:#000000;
+      --subtle:#666666;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.55;
       font-size: 15px;
+      padding: 0;
     }
     header{
-      background: var(--primary);
-      color:#fff;
-      padding: 20px 24px;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px 0 8px;
+      max-width: 920px;
+      margin: 0 auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
       gap:10px;
     }
-    header h1{font-size:20px;font-weight:700;letter-spacing:-.2px}
-    header .sub{font-size:12px;opacity:.85;margin-top:2px}
+    header h1{font-size:24px;font-weight:700;letter-spacing:-.3px;margin:0 0 0 18px}
+    header .sub{font-size:13px;opacity:.8;margin-top:2px;margin-left:18px}
     header .badge{
-      border:1px solid rgba(255,255,255,.35);
-      background: rgba(255,255,255,.12);
+      border:1px solid var(--border-light);
+      background: var(--muted);
       border-radius: 999px;
       padding: 6px 12px;
       font-size: 12px;
       white-space:nowrap;
       text-align:right;
+      color:var(--subtle);
+      margin-right:18px;
     }
     header .badge small{
       display:block;
@@ -55,7 +64,7 @@
       padding: 18px;
     }
     .section{
-      background:#fff;
+      background: var(--muted);
       border:1px solid var(--border);
       border-radius: 10px;
       overflow:hidden;
@@ -63,8 +72,8 @@
     }
     .section-head{
       padding: 10px 16px;
-      border-bottom:1px solid var(--border);
-      background:#f1f5f9;
+      border-bottom:1px solid var(--border-light);
+      background:#fff;
       display:flex;
       align-items:center;
       gap:10px;
@@ -72,7 +81,7 @@
     .section-head .n{
       width: 26px; height: 26px;
       border-radius: 6px;
-      background: var(--primary);
+      background: var(--text);
       color:#fff;
       font-weight:700;
       display:flex;
@@ -83,7 +92,7 @@
     }
     .section-head h2{
       font-size: 14px;
-      color: var(--primary);
+      color: var(--text);
       font-weight: 700;
       flex: 0 1 auto;
     }
@@ -108,7 +117,7 @@
       display:block;
       font-size: 13px;
       font-weight: 700;
-      color: var(--primary);
+      color: var(--text);
       margin-bottom: 4px;
     }
     label .hint{
@@ -118,18 +127,19 @@
     }
     input[type="text"], input[type="date"], input[type="number"], textarea{
       width: 100%;
-      border:1px solid var(--border);
-      border-radius: 8px;
-      padding: 9px 10px;
-      font-family: Arial, Helvetica, sans-serif;
+      border:1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
       font-size: 14px;
       outline:none;
       background:#fff;
+      transition:border-color .2s ease, box-shadow .2s ease;
     }
     textarea{min-height: 70px; resize: vertical}
     input:focus, textarea:focus{
-      border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(10,54,93,0.10);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
     }
 
     /* Task list */
@@ -142,7 +152,7 @@
     .task-item .num{
       width: 24px; height: 24px;
       border-radius: 50%;
-      background: var(--primary);
+      background: var(--text);
       color:#fff;
       font-weight:700;
       display:flex;
@@ -172,14 +182,15 @@
       align-items:center;
       gap:6px;
       padding: 7px 12px;
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      background:#f1f5f9;
-      color: var(--primary);
+      border: 1px dashed var(--border-light);
+      border-radius: 10px;
+      background: var(--muted);
+      color: var(--text);
       font-weight: 700;
       cursor:pointer;
+      transition:background .2s ease, border-color .2s ease;
     }
-    .add-btn:hover{background: var(--primary); color:#fff; border-style:solid}
+    .add-btn:hover{background: var(--accent); color:#fff; border-style:solid; border-color:var(--accent)}
 
     .op-wrap{margin-top: 10px}
     .op-label{
@@ -189,23 +200,24 @@
     }
     .op-buttons{display:flex;flex-wrap:wrap;gap:6px}
     .op-buttons button{
-      border:1px solid var(--border);
+      border:1px solid var(--border-light);
       background:#fff;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 5px 10px;
       cursor:pointer;
       font-size: 12px;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
     }
-    .op-buttons button:hover{background: var(--primary); color:#fff; border-color: var(--primary)}
+    .op-buttons button:hover{background: var(--accent); color:#fff; border-color: var(--accent)}
 
     .qtag{
       display:inline-block;
       font-size: 12px;
       font-weight: 700;
-      color: var(--primary);
-      background:#eef3f8;
-      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--muted);
+      border: 1px solid var(--border-light);
       padding: 3px 8px;
       border-radius: 999px;
       margin-bottom: 6px;
@@ -213,7 +225,7 @@
 
     .actions{
       display:flex;
-      gap:10px;
+      gap:8px;
       justify-content:center;
       flex-wrap:wrap;
       padding: 10px 0 22px;
@@ -221,19 +233,59 @@
     .btn{
       border:none;
       border-radius: 10px;
-      padding: 10px 16px;
+      padding: 12px 16px;
       font-weight: 700;
       cursor:pointer;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 14px;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      font-size: 15px;
       display:inline-flex;
       gap:8px;
       align-items:center;
+      transition:background .2s ease;
     }
-    .btn.primary{background: var(--primary); color:#fff}
-    .btn.primary:hover{background: var(--primary-light)}
-    .btn.secondary{background:#fff;border:2px solid var(--primary);color: var(--primary)}
-    .btn.secondary:hover{background:#f1f5f9}
+    .btn.primary{background: var(--accent); color:#fff}
+    .btn.primary:hover{background: var(--accent-hover)}
+    .btn.secondary{background:#fff;border:2px solid var(--text);color: var(--text)}
+    .btn.secondary:hover{background: var(--muted)}
+    .btn.subtle{background:transparent;border:1px solid var(--border-light);color:var(--subtle);font-weight:600}
+    .btn.subtle:hover{background: var(--muted);color:var(--text);border-color:var(--text)}
+
+    /* Dropdown button group */
+    .btn-dropdown{position:relative;display:inline-block}
+    .btn-dropdown .dropdown-menu{
+      display:none;
+      position:absolute;
+      bottom:calc(100% + 6px);
+      left:50%;
+      transform:translateX(-50%);
+      background:#fff;
+      border:1px solid var(--border-light);
+      border-radius:10px;
+      box-shadow:0 4px 16px rgba(0,0,0,.12);
+      min-width:160px;
+      z-index:50;
+      overflow:hidden;
+    }
+    .btn-dropdown.open .dropdown-menu{display:block}
+    .dropdown-menu button{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      width:100%;
+      padding:10px 14px;
+      border:none;
+      background:none;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      font-size:13px;
+      font-weight:600;
+      color:var(--text);
+      cursor:pointer;
+      text-align:left;
+    }
+    .dropdown-menu button:hover{background:var(--muted);color:var(--accent)}
+    .dropdown-menu button+button{border-top:1px solid var(--border-light)}
+    .dropdown-menu .dm-danger{color:#c33}
+    .dropdown-menu .dm-danger:hover{background:#fef2f2;color:#b91c1c}
 
     /* Preview overlay (minimal, similar to Word output) */
     .overlay{
@@ -320,8 +372,8 @@
   
     /* Operator taxonomy (subtle, no color-coding required) */
     .op-groups{display:flex;flex-direction:column;gap:10px}
-    .op-group{border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff}
-    .op-group-title{font-size:12px;font-weight:700;color:var(--primary);margin:0 0 8px}
+    .op-group{border:1px solid var(--border-light);border-radius:10px;padding:10px;background:#fff}
+    .op-group-title{font-size:12px;font-weight:700;color:var(--text);margin:0 0 8px}
     .op-group-sub{font-size:12px;color:var(--subtle);font-weight:400}
     .op-buttons{display:flex;flex-wrap:wrap;gap:6px}
 
@@ -335,12 +387,12 @@
     .app-footer .divider{
       width:60px;
       height:2px;
-      background:var(--primary);
+      background:var(--accent);
       margin:0 auto 12px;
       border-radius:2px;
       opacity:.25;
     }
-    .app-footer a{color:var(--primary-light);text-decoration:none}
+    .app-footer a{color:var(--accent);text-decoration:none}
     .app-footer a:hover{text-decoration:underline}
     .app-footer p{margin:0}
 
@@ -353,7 +405,7 @@
     <h1>Klare Aufträge</h1>
     <div class="sub">Evidenzbasierte Vorlage nach Hattie, Bloom &amp; KMK-Anforderungsbereichen</div>
   </div>
-  <div class="badge">✦ Nach Hattie | 6-W-Methode | Operatoren</div>
+  <div class="badge">Nach Hattie · 6-W-Methode · Operatoren</div>
 </header>
 
 <div class="container">
@@ -563,10 +615,23 @@
 
   <div class="actions">
     <button class="btn primary" type="button" onclick="generatePreview()">▶ Vorschau</button>
-    <button class="btn primary" type="button" onclick="downloadWord()">⬇ Word (.doc)</button>
-    <button class="btn secondary" type="button" onclick="saveToFile()">Speichern</button>
-    <button class="btn secondary" type="button" onclick="loadFromFile()">Laden</button>
-    <button class="btn secondary" type="button" onclick="clearForm()">↺ Leeren</button>
+
+    <div class="btn-dropdown" id="ddExport">
+      <button class="btn primary" type="button" onclick="toggleDropdown('ddExport')">⬇ Exportieren ▾</button>
+      <div class="dropdown-menu">
+        <button type="button" onclick="downloadWord();closeDropdowns()">Word (.doc)</button>
+        <button type="button" onclick="downloadPDF();closeDropdowns()">PDF</button>
+      </div>
+    </div>
+
+    <div class="btn-dropdown" id="ddMore">
+      <button class="btn subtle" type="button" onclick="toggleDropdown('ddMore')">⚙ Mehr ▾</button>
+      <div class="dropdown-menu">
+        <button type="button" onclick="saveToFile();closeDropdowns()">Speichern</button>
+        <button type="button" onclick="loadFromFile();closeDropdowns()">Laden</button>
+        <button class="dm-danger" type="button" onclick="clearForm();closeDropdowns()">Leeren</button>
+      </div>
+    </div>
   </div>
 
   <footer class="app-footer">
@@ -586,12 +651,35 @@
   <button class="close" type="button" onclick="closePreview()">✕</button>
   <div class="preview" id="previewContent"></div>
   <div class="preview-actions">
-    <button class="btn primary" type="button" onclick="downloadWord()">⬇ Word (.doc)</button>
+    <div class="btn-dropdown" id="ddExportPreview">
+      <button class="btn primary" type="button" onclick="toggleDropdown('ddExportPreview')">⬇ Exportieren ▾</button>
+      <div class="dropdown-menu">
+        <button type="button" onclick="downloadWord();closeDropdowns()">Word (.doc)</button>
+        <button type="button" onclick="downloadPDF();closeDropdowns()">PDF</button>
+      </div>
+    </div>
     <button class="btn secondary" type="button" onclick="closePreview()">Schließen</button>
   </div>
 </div>
 
+<!-- PDF-Export erfolgt über optimiertes Druckfenster – keine externe Bibliothek nötig -->
+
 <script>
+  // ----------------- Dropdown menu logic -----------------
+  function toggleDropdown(id) {
+    const el = document.getElementById(id);
+    const wasOpen = el.classList.contains('open');
+    closeDropdowns();
+    if (!wasOpen) el.classList.add('open');
+  }
+  function closeDropdowns() {
+    document.querySelectorAll('.btn-dropdown.open').forEach(d => d.classList.remove('open'));
+  }
+  // Schließen bei Klick außerhalb
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.btn-dropdown')) closeDropdowns();
+  });
+
   // ----------------- Safety helpers (avoid HTML injection) -----------------
   function escapeHtml(str) {
     return (str || '')
@@ -945,6 +1033,69 @@ size: 595.3pt 841.9pt; /* A4 */
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  }
+
+  // ----------------- PDF export (eigenes Druckfenster, keine Abhängigkeiten) ---------
+  function downloadPDF() {
+    const data = getFormData();
+    const bodyHtml = generateDocHTMLWord(data);
+    const titel = escapeHtml(data.titel || 'Arbeitsauftrag');
+
+    const printCss = `
+      @page {
+        size: A4 portrait;
+        margin: 20mm 18mm 20mm 18mm;
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        margin: 0; padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11pt; line-height: 1.25; color: #000;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .doc { width: 100%; }
+      .title { font-size: 16pt; font-weight: bold; margin: 0 0 10pt; padding-bottom: 6pt; border-bottom: 1.5pt solid #0a365d; color: #0a365d; font-family: 'Arial Narrow', Arial, sans-serif; }
+      .metatbl { width: 100%; border-collapse: collapse; margin: 0; font-size: 10pt; }
+      .metatbl td { vertical-align: top; padding: 0 0 4pt 0; font-size: 10pt; color: #000; }
+      .metatbl .mk { width: 24%; font-weight: bold; padding-right: 6pt; font-family: 'Arial Narrow', Arial, sans-serif; color: #0a365d; }
+      .afterMetaSpacer { margin: 0 0 6pt 0; line-height: 0; font-size: 0; }
+      .hltbl { width: 100%; border-collapse: collapse; margin: 0 0 9pt; }
+      .hltbl td { vertical-align: top; background: #eef3f8; padding: 8pt 10pt; }
+      .sec { margin: 0 0 9pt; }
+      .h { font-size: 12pt; font-weight: bold; margin: 0 0 4pt; color: #0a365d; font-family: 'Arial Narrow', Arial, sans-serif; }
+      .p { margin: 2pt 0 0 0; }
+      .checktbl { width: 100%; border-collapse: collapse; margin: 0; }
+      .checktbl td { vertical-align: top; padding: 0 0 4pt 0; }
+      .checktbl .box { width: 14pt; padding-right: 6pt; }
+      .numtbl { width: 100%; border-collapse: collapse; margin: 0; }
+      .numtbl td { vertical-align: top; padding: 0 0 4pt 0; }
+      .numtbl .n { width: 24pt; padding-left: 8pt; padding-right: 4pt; }
+      .sectrule td { border-top: 0.75pt solid #ccc; }
+      .notiztbl { width: 100%; border-collapse: collapse; margin: 0; }
+      .notiztbl td.notizline { height: 22pt; border-bottom: 0.5pt solid #bbb; }
+      .spacer { margin: 0; line-height: 0; font-size: 0; }
+    `;
+
+    const fullHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + titel + '</title><style>' + printCss + '</style></head><body>' + bodyHtml + '</body></html>';
+
+    const pdfWindow = window.open('', '_blank');
+    if (!pdfWindow) {
+      alert('Pop-up wurde blockiert. Bitte erlauben Sie Pop-ups für diese Seite und versuchen Sie es erneut.');
+      return;
+    }
+
+    pdfWindow.document.open();
+    pdfWindow.document.write(fullHtml);
+    pdfWindow.document.close();
+
+    // Warten bis alles gerendert ist, dann Druckdialog öffnen
+    pdfWindow.onload = function() {
+      setTimeout(function() { pdfWindow.print(); }, 250);
+    };
+    // Fallback falls onload nicht feuert (manche Browser bei about:blank)
+    setTimeout(function() { try { pdfWindow.print(); } catch(e) {} }, 800);
   }
 
   // ----------------- Save/Load (JSON file) -----------------
