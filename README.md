@@ -5,6 +5,7 @@
 [![Lizenz: CC BY-NC-SA 4.0](https://img.shields.io/badge/Lizenz-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue)](https://florianloyns.github.io/klare-auftraege/index.html)
 ![Keine Abhängigkeiten](https://img.shields.io/badge/Abh%C3%A4ngigkeiten-keine-brightgreen)
+
 Hier klicken zum Ausprobieren: [index.html](https://florianloyns.github.io/klare-auftraege/index.html)
 
 <img src="docs/screenshot.png" alt="Klare Aufträge – Oberfläche" width="640">
