@@ -11,7 +11,6 @@ Hier klicken zum Ausprobieren: [index.html](https://florianloyns.github.io/klare
 <img src="docs/screenshot.png" alt="Klare Aufträge – Oberfläche" width="640">
 <img src="docs/screenshot-word-export.png" alt="Word-Export – Beispiel Arbeitsauftrag" width="640">
 
-*Word-Export: Beispielauftrag „Sturzprophylaxe" mit Lernziel, Erfolgskriterien und Arbeitsaufträgen*
 ---
 
 > Ein schlankes Werkzeug für die Erstellung strukturierter Arbeitsaufträge – mit Word-Export, Operatoren-Bibliothek und didaktischer Grundstruktur nach Hattie und Bloom. Alles in einer einzigen HTML-Datei, ohne Installation, offline nutzbar.
