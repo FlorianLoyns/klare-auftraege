@@ -1,0 +1,31 @@
+{
+  "_type": "arbeitsauftrag_generator",
+  "_version": 1,
+  "savedAt": "2026-03-07T10:00:00.000Z",
+  "data": {
+    "titel": "Sturzprophylaxe planen: Fallbeispiel Herr Weber",
+    "lernfeld": "Block 02: Mobilität und Sicherheit in der Pflege",
+    "kurs": "",
+    "datum": "",
+    "dozent": "",
+    "lernziel": "Die Lernenden können Sturzrisikofaktoren systematisch erfassen, geeignete prophylaktische Maßnahmen ableiten und diese in einem individuellen Maßnahmenplan für eine konkrete Pflegesituation begründen.",
+    "erfolgskriterien": "- Mindestens 5 Sturzrisikofaktoren aus dem Fallbeispiel identifiziert und nach intrinsisch/extrinsisch kategorisiert.\n- Sturzrisiko mithilfe der Morse Fall Scale eingeschätzt und Punktwert dokumentiert.\n- Mindestens 4 individuelle prophylaktische Maßnahmen formuliert und dem jeweiligen Risikofaktor zugeordnet.\n- Maßnahmenplan enthält konkrete Angaben zu Häufigkeit, Zuständigkeit und Evaluation.",
+    "afb": "AFB I – Reproduktion, AFB II – Reorganisation/Transfer, AFB III – Reflexion/Bewertung",
+    "einstieg": "Herr Weber, 78 Jahre, wurde nach einer Hüft-TEP (Tag 3 postoperativ) aus dem Akutkrankenhaus in Ihre Einrichtung zur Kurzzeitpflege verlegt. Er trägt eine Gleitsichtbrille, nimmt Antihypertensiva ein und berichtet, dass er sich beim Aufstehen unsicher fühle. Nachts muss er häufig zur Toilette. Der Flur zu seinem Zimmer ist schwach beleuchtet, und er trägt offene Hausschuhe.",
+    "aufgaben": [
+      "Lesen Sie das Fallbeispiel und identifizieren Sie alle Sturzrisikofaktoren. Ordnen Sie diese in einer Tabelle den Kategorien intrinsisch (personenbezogen) und extrinsisch (umgebungsbezogen) zu.",
+      "Schätzen Sie das Sturzrisiko von Herrn Weber mithilfe der Morse Fall Scale ein. Dokumentieren Sie den Gesamtpunktwert und ordnen Sie das Ergebnis einer Risikostufe zu.",
+      "Leiten Sie aus den identifizierten Risikofaktoren mindestens 4 individuelle Maßnahmen zur Sturzprophylaxe ab. Formulieren Sie diese als konkreten Maßnahmenplan mit Angaben zu Häufigkeit und Zuständigkeit.",
+      "Bewerten Sie: Welche der geplanten Maßnahmen hat Ihrer Einschätzung nach die größte Wirkung auf die Sturzprävention bei Herrn Weber? Begründen Sie Ihre Einschätzung mit Bezug auf den Expertenstandard."
+    ],
+    "sozialform": "Aufgabe 1–2: Einzelarbeit · Aufgabe 3–4: Partnerarbeit",
+    "materialien": "Fallbeispiel (dieses Arbeitsblatt), Morse Fall Scale (Vorlage), Expertenstandard Sturzprophylaxe in der Pflege (Auszug), Stift.",
+    "wie": "Risikofaktoren sammeln → Morse Fall Scale ausfüllen → Maßnahmen ableiten → priorisieren und begründen.",
+    "zeit_min": "30",
+    "zeit_hinweis": "5 Min. Risikofaktoren identifizieren · 5 Min. Morse Fall Scale · 10 Min. Maßnahmenplan · 10 Min. Bewertung und Begründung",
+    "ergebnis": "Jedes Paar stellt eine priorisierte Maßnahme mit Begründung im Plenum vor. Maßnahmenpläne werden eingesammelt.",
+    "differenzierung": "Formulieren Sie ein kurzes Beratungsgespräch (5–6 Sätze), in dem Sie Herrn Weber über die wichtigsten Maßnahmen zur Sturzprävention informieren. Achten Sie auf verständliche Sprache.",
+    "hinweise": "Gehen Sie das Fallbeispiel Satz für Satz durch. Jeder Satz kann einen oder mehrere Risikofaktoren enthalten. Nutzen Sie die Morse Fall Scale als Checkliste, nicht als Ersatz für Ihre eigene Einschätzung. Achten Sie im Maßnahmenplan darauf, dass die Maßnahmen realistisch und umsetzbar sind.",
+    "notizen": true
+  }
+}
