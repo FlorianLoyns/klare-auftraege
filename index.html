@@ -6,11 +6,11 @@
   <title>Klare Aufträge | Arbeitsauftrag erstellen (Word- &amp; PDF-Export)</title>
   <style>
     :root{
-      --primary:#0d7377;
-      --primary-light:#0a5c5f;
-      --accent:#0d7377;
-      --accent-hover:#0a5c5f;
-      --accent-light:#e0f2f1;
+      --primary:#2C4A6E;
+      --primary-light:#1e3a57;
+      --accent:#2C4A6E;
+      --accent-hover:#1e3a57;
+      --accent-light:#e8eef5;
       --border:#cbd5e1;
       --border-light:#e2e8f0;
       --bg:#ffffff;
@@ -18,25 +18,11 @@
       --fg:#1e293b;
       --text:#1e293b;
       --subtle:#6b7280;
-      --success:#0f766e;
+      --success:#2C4A6E;
       --shadow-sm:0 1px 3px rgba(0,0,0,.06);
       --shadow-md:0 2px 8px rgba(0,0,0,.09);
       --radius:10px;
       --transition:all .2s ease;
-    }
-    [data-theme="dark"]{
-      --accent:#2dd4bf;
-      --accent-hover:#14b8a6;
-      --accent-light:#134e4a;
-      --border:#334155;
-      --border-light:#1e293b;
-      --bg:#0f172a;
-      --muted:#1e293b;
-      --fg:#e2e8f0;
-      --text:#e2e8f0;
-      --subtle:#94a3b8;
-      --shadow-sm:0 1px 3px rgba(0,0,0,.3);
-      --shadow-md:0 2px 8px rgba(0,0,0,.4);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
@@ -146,10 +132,7 @@
     textarea{min-height: 70px; resize: vertical}
     input:focus, textarea:focus{
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(13,115,119,0.12);
-    }
-    [data-theme="dark"] input:focus, [data-theme="dark"] textarea:focus{
-      box-shadow: 0 0 0 3px rgba(45,212,191,0.15);
+      box-shadow: 0 0 0 3px rgba(44,74,110,0.12);
     }
 
     /* Task list */
@@ -406,22 +389,6 @@
     .app-footer a:hover{text-decoration:underline}
     .app-footer p{margin:0}
 
-    #darkToggle {
-      flex-shrink:0;
-      margin-right:18px;
-      width:36px; height:36px;
-      border-radius:50%;
-      border:1px solid var(--border);
-      background:var(--muted);
-      color:var(--text);
-      font-size:17px;
-      cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      transition:var(--transition);
-      box-shadow:var(--shadow-sm);
-    }
-    #darkToggle:hover { transform:scale(1.1); }
-    #darkToggle:focus { outline:none; }
   </style>
 </head>
 <body>
@@ -431,7 +398,6 @@
     <h1>Klare Aufträge</h1>
     <div class="sub">Evidenzbasierte Vorlage nach Hattie, Bloom &amp; KMK-Anforderungsbereichen</div>
   </div>
-  <button id="darkToggle" aria-label="Dark Mode umschalten" title="Dark Mode">🌙</button>
 </header>
 
 <div class="container">
@@ -1304,27 +1270,6 @@ function clearForm() {
   }
 
   // ---- DARK MODE ----
-  (function() {
-    const html = document.documentElement;
-    const btn = document.getElementById('darkToggle');
-    const stored = localStorage.getItem('auftraege-theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let isDark = stored ? stored === 'dark' : prefersDark;
-
-    function applyTheme(dark) {
-      isDark = dark;
-      html.setAttribute('data-theme', dark ? 'dark' : 'light');
-      btn.textContent = dark ? '☀️' : '🌙';
-      btn.title = dark ? 'Light Mode aktivieren' : 'Dark Mode aktivieren';
-      localStorage.setItem('auftraege-theme', dark ? 'dark' : 'light');
-    }
-
-    applyTheme(isDark);
-    btn.addEventListener('click', () => applyTheme(!isDark));
-    btn.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); applyTheme(!isDark); }
-    });
-  })();
 </script>
 
 </body>
