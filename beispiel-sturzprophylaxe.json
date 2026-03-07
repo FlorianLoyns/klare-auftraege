@@ -1,0 +1,30 @@
+{
+  "_type": "arbeitsauftrag_generator",
+  "_version": 1,
+  "savedAt": "2026-03-07T10:00:00.000Z",
+  "data": {
+    "titel": "Sturzrisiken erkennen: Fallbeispiel Herr Weber",
+    "lernfeld": "Block 02: Mobilität und Sicherheit in der Pflege",
+    "kurs": "",
+    "datum": "",
+    "dozent": "",
+    "lernziel": "Die Lernenden können Sturzrisikofaktoren in einem Fallbeispiel erkennen, diese nach intrinsisch und extrinsisch einordnen und jeweils eine passende pflegerische Maßnahme zuordnen.",
+    "erfolgskriterien": "- Mindestens 5 Sturzrisikofaktoren aus dem Fallbeispiel benannt.\n- Jeder Faktor als intrinsisch oder extrinsisch eingeordnet.\n- Zu jedem Faktor eine konkrete pflegerische Maßnahme formuliert.",
+    "afb": "AFB I – Reproduktion, AFB II – Reorganisation/Transfer",
+    "einstieg": "Herr Weber, 78 Jahre, wurde nach einer Hüft-TEP (Tag 3 postoperativ) in Ihre Einrichtung zur Kurzzeitpflege verlegt. Er trägt eine Gleitsichtbrille, nimmt Antihypertensiva ein und berichtet, dass er sich beim Aufstehen unsicher fühle. Nachts muss er häufig zur Toilette. Der Flur zu seinem Zimmer ist schwach beleuchtet, und er trägt offene Hausschuhe.",
+    "aufgaben": [
+      "Lesen Sie das Fallbeispiel aufmerksam durch und markieren Sie alle Sturzrisikofaktoren.",
+      "Ordnen Sie die gefundenen Risikofaktoren in einer Tabelle den Kategorien intrinsisch (personenbezogen) und extrinsisch (umgebungsbezogen) zu.",
+      "Formulieren Sie zu jedem Risikofaktor eine konkrete pflegerische Maßnahme, die das Sturzrisiko verringert."
+    ],
+    "sozialform": "Aufgabe 1–2: Einzelarbeit · Aufgabe 3: Partnerarbeit",
+    "materialien": "Fallbeispiel (dieses Arbeitsblatt), Stift, leeres Blatt oder Tabelle.",
+    "wie": "Fallbeispiel lesen und markieren → Tabelle anlegen und zuordnen → Maßnahmen gemeinsam formulieren.",
+    "zeit_min": "20",
+    "zeit_hinweis": "5 Min. lesen und markieren · 5 Min. Tabelle ausfüllen · 10 Min. Maßnahmen formulieren",
+    "ergebnis": "Jedes Paar stellt zwei Risikofaktoren mit Maßnahme im Plenum vor.",
+    "differenzierung": "Wählen Sie einen extrinsischen Risikofaktor und beschreiben Sie, wie Sie die Umgebung von Herrn Weber konkret verändern würden.",
+    "hinweise": "Gehen Sie das Fallbeispiel Satz für Satz durch – jeder Satz kann einen oder mehrere Risikofaktoren enthalten. Überlegen Sie bei den Maßnahmen, was Sie als Pflegefachperson selbst umsetzen können.",
+    "notizen": true
+  }
+}
