@@ -5,15 +5,9 @@
 [![Lizenz: CC BY-NC-SA 4.0](https://img.shields.io/badge/Lizenz-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue)](https://florianloyns.github.io/klare-auftraege/index.html)
 ![Keine Abhängigkeiten](https://img.shields.io/badge/Abh%C3%A4ngigkeiten-keine-brightgreen)
-![Dark Mode](https://img.shields.io/badge/Dark%20Mode-unterst%C3%BCtzt-darkblue)
-
 Hier klicken zum Ausprobieren: [index.html](https://florianloyns.github.io/klare-auftraege/index.html)
 
----
-
-| Light Mode | Dark Mode |
-|:---:|:---:|
-| ![Light Mode](docs/screenshot-light.png) | ![Dark Mode](docs/screenshot-dark.png) |
+<img src="docs/screenshot.png" alt="Klare Aufträge – Oberfläche" width="640">
 
 ---
 
@@ -29,7 +23,6 @@ Hier klicken zum Ausprobieren: [index.html](https://florianloyns.github.io/klare
 - [Didaktische Grundlagen](#didaktische-grundlagen)
 - [Schnellstart](#schnellstart)
 - [Technisches](#technisches)
-- [Lizenz](#lizenz)
 
 ---
 
@@ -47,7 +40,6 @@ Dieses Tool gibt eine Struktur vor, die das erzwingt: Lernziel und Erfolgskriter
 - **Schülerfreundliche Überschriften** im Export (auch für DaZ-Lernende verständlich)
 - Arbeitsaufträge als **JSON speichern und wiederverwenden**
 - Optionales Notizfeld am Ende
-- **Dark Mode** – per Klick auf den Toggle-Button umschaltbar, respektiert die Systempräferenz
 
 
 ## Struktur im Word-Export
@@ -86,12 +78,6 @@ Eine einzelne HTML-Datei – kein Build, kein Framework, kein Server, keine exte
 
 - Keine Datenübertragung, kein Tracking (DSGVO-konform)
 - JSON-Export speichert Aufträge lokal – keine Daten verlassen das Gerät
-- Dark Mode mit Systempräferenz-Erkennung, Einstellung wird im Browser gespeichert
-
-
-## Lizenz
-
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de) · Nutzen, anpassen und teilen – unter Namensnennung, nicht-kommerziell und unter gleichen Bedingungen.
 
 ---
 
