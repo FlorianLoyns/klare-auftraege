@@ -389,6 +389,81 @@
     .app-footer a:hover{text-decoration:underline}
     .app-footer p{margin:0}
 
+    @keyframes fadeInUp {
+      from { opacity:0; transform:translateX(-50%) translateY(10px); }
+      to   { opacity:1; transform:translateX(-50%) translateY(0); }
+    }
+
+    /* ---- DARK MODE ---- */
+    body.dark {
+      --primary:#4a7cb5;
+      --primary-light:#3a6a9f;
+      --accent:#4a7cb5;
+      --accent-hover:#3a6a9f;
+      --accent-light:#1e3a57;
+      --border:#374151;
+      --border-light:#2d3748;
+      --bg:#1a1f2e;
+      --muted:#232938;
+      --fg:#e2e8f0;
+      --text:#e2e8f0;
+      --subtle:#9ca3af;
+      --success:#4a7cb5;
+      --shadow-sm:0 1px 3px rgba(0,0,0,.3);
+      --shadow-md:0 2px 8px rgba(0,0,0,.4);
+    }
+    body.dark input[type="text"],
+    body.dark input[type="date"],
+    body.dark input[type="number"],
+    body.dark textarea {
+      background: #2d3748;
+      color: #e2e8f0;
+      border-color: #374151;
+    }
+    body.dark input:focus,
+    body.dark textarea:focus {
+      border-color: #4a7cb5;
+      box-shadow: 0 0 0 3px rgba(74,124,181,0.2);
+    }
+    body.dark .btn.secondary {
+      background: #2d3748;
+      border-color: #4a7cb5;
+      color: #4a7cb5;
+    }
+    body.dark .btn.secondary:hover { background: #1e3a57; }
+    body.dark .btn.subtle { background: transparent; border-color: #374151; color: #9ca3af; }
+    body.dark .btn.subtle:hover { background: #2d3748; color: #e2e8f0; border-color: #4a7cb5; }
+    body.dark .dropdown-menu { background: #2d3748; border-color: #374151; }
+    body.dark .dropdown-menu button { color: #e2e8f0; }
+    body.dark .dropdown-menu button:hover { background: #374151; color: #4a7cb5; }
+    body.dark .dropdown-menu button+button { border-color: #374151; }
+    body.dark .op-buttons button { background: #2d3748; border-color: #374151; color: #e2e8f0; }
+    body.dark .op-buttons button:hover { background: #4a7cb5; border-color: #4a7cb5; color: #fff; }
+    body.dark .op-group { background: #2d3748; border-color: #374151; }
+    body.dark .add-btn { background: #232938; border-color: #374151; color: #e2e8f0; }
+    body.dark .add-btn:hover { background: #4a7cb5; border-color: #4a7cb5; color: #fff; }
+    body.dark .preview { background: #fff; } /* Vorschau bleibt immer hell (Druckdokument) */
+    body.dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+
+    /* Toggle-Button */
+    .dark-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--subtle);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      margin-right: 18px;
+      white-space: nowrap;
+    }
+    .dark-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
   </style>
 </head>
 <body>
@@ -398,6 +473,9 @@
     <h1>Klare Aufträge</h1>
     <div class="sub">Evidenzbasierte Vorlage nach Hattie, Bloom &amp; KMK-Anforderungsbereichen</div>
   </div>
+  <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Dark Mode umschalten">
+    <span id="darkIcon">🌙</span><span id="darkLabel">Dark Mode</span>
+  </button>
 </header>
 
 <div class="container">
@@ -593,7 +671,7 @@
     <div class="section-body">
       <div class="field">
         <label for="differenzierung">Differenzierung</label>
-        <textarea id="differenzierung" placeholder="z.B. Hilfekarten / Zusatzaufgabe / gestufte Hinweise …"></textarea>
+        <textarea id="differenzierung" placeholder="z.B. Zusatzaufgabe für Schnelle · Sprach-Scaffolding (Satzanfänge vorgeben) · Helfersystem · Gestufte Hilfen (Tipp-Karten) · Reduktion (vereinfachtes Material) · Visualisierung (Mind-Map)"></textarea>
       </div>
       <div class="field" style="margin-bottom:0">
         <label for="hinweise">Hinweise</label>
@@ -730,13 +808,80 @@
     div.querySelector('textarea').focus();
   }
 
+  // Undo-Puffer für gelöschte Arbeitsschritte
+  let deletedTaskUndo = null;
+  let deletedTaskTimer = null;
+
   function removeTask(btn) {
     const item = btn.closest('.task-item');
     const list = document.getElementById('aufgaben-list');
-    if (list.querySelectorAll('.task-item').length > 1) {
-      item.remove();
-      renumberTasks();
+    if (list.querySelectorAll('.task-item').length <= 1) return;
+
+    const text = item.querySelector('textarea').value;
+    const index = Array.from(list.querySelectorAll('.task-item')).indexOf(item);
+
+    // Undo-Puffer speichern
+    deletedTaskUndo = { text, index };
+
+    item.remove();
+    renumberTasks();
+
+    // Undo-Toast anzeigen
+    showUndoToast();
+
+    // Nach 5 Sekunden Undo-Puffer leeren
+    clearTimeout(deletedTaskTimer);
+    deletedTaskTimer = setTimeout(() => {
+      deletedTaskUndo = null;
+      hideUndoToast();
+    }, 5000);
+  }
+
+  function undoDeleteTask() {
+    if (!deletedTaskUndo) return;
+    const list = document.getElementById('aufgaben-list');
+    const items = list.querySelectorAll('.task-item');
+    const div = document.createElement('div');
+    div.className = 'task-item';
+    div.innerHTML = `
+      <div class="num">?</div>
+      <textarea placeholder="Arbeitsschritt …"></textarea>
+      <button type="button" onclick="removeTask(this)" title="Entfernen">×</button>
+    `;
+    div.querySelector('textarea').value = deletedTaskUndo.text;
+    const refNode = items[deletedTaskUndo.index] || null;
+    list.insertBefore(div, refNode);
+    renumberTasks();
+
+    deletedTaskUndo = null;
+    clearTimeout(deletedTaskTimer);
+    hideUndoToast();
+  }
+
+  function showUndoToast() {
+    let toast = document.getElementById('undoToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'undoToast';
+      toast.style.cssText = `
+        position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+        background:#1e293b; color:#fff; padding:10px 18px; border-radius:999px;
+        font-size:14px; font-weight:600; display:flex; align-items:center; gap:12px;
+        box-shadow:0 4px 20px rgba(0,0,0,.25); z-index:9999;
+        animation: fadeInUp .2s ease;
+      `;
+      document.body.appendChild(toast);
     }
+    toast.innerHTML = `
+      <span>Arbeitsschritt gelöscht</span>
+      <button onclick="undoDeleteTask()" style="background:#2C4A6E;border:none;color:#fff;padding:4px 12px;border-radius:999px;cursor:pointer;font-weight:700;font-size:13px;font-family:inherit;">↩ Rückgängig</button>
+    `;
+    toast.style.display = 'flex';
+  }
+
+  function hideUndoToast() {
+    const toast = document.getElementById('undoToast');
+    if (toast) toast.style.display = 'none';
   }
 
   function renumberTasks() {
@@ -1270,6 +1415,33 @@ function clearForm() {
   }
 
   // ---- DARK MODE ----
+  function toggleDark() {
+    const isDark = document.body.classList.toggle('dark');
+    updateDarkToggle(isDark);
+    try { localStorage.setItem('klareauftraege_dark', isDark ? '1' : '0'); } catch(e) {}
+  }
+
+  function updateDarkToggle(isDark) {
+    document.getElementById('darkIcon').textContent = isDark ? '☀️' : '🌙';
+    document.getElementById('darkLabel').textContent = isDark ? 'Hell' : 'Dark Mode';
+  }
+
+  // Beim Laden: gespeicherte Präferenz oder System-Präferenz
+  (function() {
+    let isDark = false;
+    try {
+      const stored = localStorage.getItem('klareauftraege_dark');
+      if (stored !== null) {
+        isDark = stored === '1';
+      } else {
+        isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+    } catch(e) {}
+    if (isDark) {
+      document.body.classList.add('dark');
+      updateDarkToggle(true);
+    }
+  })();
 </script>
 
 </body>
