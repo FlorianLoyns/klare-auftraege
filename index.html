@@ -411,76 +411,6 @@
       to   { opacity:1; transform:translateX(-50%) translateY(0); }
     }
 
-    /* ---- DARK MODE ---- */
-    body.dark {
-      --primary:#4a7cb5;
-      --primary-light:#3a6a9f;
-      --accent:#4a7cb5;
-      --accent-hover:#3a6a9f;
-      --accent-light:#1e3a57;
-      --border:#374151;
-      --border-light:#2d3748;
-      --bg:#1a1f2e;
-      --muted:#232938;
-      --fg:#e2e8f0;
-      --text:#e2e8f0;
-      --subtle:#9ca3af;
-      --success:#4a7cb5;
-      --shadow-sm:0 1px 3px rgba(0,0,0,.3);
-      --shadow-md:0 2px 8px rgba(0,0,0,.4);
-    }
-    body.dark input[type="text"],
-    body.dark input[type="date"],
-    body.dark input[type="number"],
-    body.dark textarea {
-      background: #2d3748;
-      color: #e2e8f0;
-      border-color: #374151;
-    }
-    body.dark input:focus,
-    body.dark textarea:focus {
-      border-color: #4a7cb5;
-      box-shadow: 0 0 0 3px rgba(74,124,181,0.2);
-    }
-    body.dark .btn.secondary {
-      background: #2d3748;
-      border-color: #4a7cb5;
-      color: #4a7cb5;
-    }
-    body.dark .btn.secondary:hover { background: #1e3a57; }
-    body.dark .btn.subtle { background: transparent; border-color: #374151; color: #9ca3af; }
-    body.dark .btn.subtle:hover { background: #2d3748; color: #e2e8f0; border-color: #4a7cb5; }
-    body.dark .dropdown-menu { background: #2d3748; border-color: #374151; }
-    body.dark .dropdown-menu button { color: #e2e8f0; }
-    body.dark .dropdown-menu button:hover { background: #374151; color: #4a7cb5; }
-    body.dark .dropdown-menu button+button { border-color: #374151; }
-    body.dark .op-buttons button { background: #2d3748; border-color: #374151; color: #e2e8f0; }
-    body.dark .op-buttons button:hover { background: #4a7cb5; border-color: #4a7cb5; color: #fff; }
-    body.dark .op-group { background: #2d3748; border-color: #374151; }
-    body.dark .add-btn { background: #232938; border-color: #374151; color: #e2e8f0; }
-    body.dark .add-btn:hover { background: #4a7cb5; border-color: #4a7cb5; color: #fff; }
-    body.dark .preview { background: #fff; } /* Vorschau bleibt immer hell (Druckdokument) */
-    body.dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
-
-    /* Toggle-Button */
-    .dark-toggle {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 5px 12px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--subtle);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: var(--transition);
-      margin-right: 18px;
-      white-space: nowrap;
-    }
-    .dark-toggle:hover { border-color: var(--accent); color: var(--accent); }
-
   </style>
 </head>
 <body>
@@ -490,9 +420,6 @@
     <h1>Klare Aufträge</h1>
     <div class="sub">Evidenzbasierte Vorlage nach Hattie, Bloom &amp; KMK-Anforderungsbereichen</div>
   </div>
-  <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Dark Mode umschalten">
-    <span id="darkIcon">🌙</span><span id="darkLabel">Dark Mode</span>
-  </button>
 </header>
 
 <div class="container">
@@ -1430,34 +1357,6 @@ function clearForm() {
     renumberTasks();
   }
 
-  // ---- DARK MODE ----
-  function toggleDark() {
-    const isDark = document.body.classList.toggle('dark');
-    updateDarkToggle(isDark);
-    try { localStorage.setItem('klareauftraege_dark', isDark ? '1' : '0'); } catch(e) {}
-  }
-
-  function updateDarkToggle(isDark) {
-    document.getElementById('darkIcon').textContent = isDark ? '☀️' : '🌙';
-    document.getElementById('darkLabel').textContent = isDark ? 'Hell' : 'Dark Mode';
-  }
-
-  // Beim Laden: gespeicherte Präferenz oder System-Präferenz
-  (function() {
-    let isDark = false;
-    try {
-      const stored = localStorage.getItem('klareauftraege_dark');
-      if (stored !== null) {
-        isDark = stored === '1';
-      } else {
-        isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      }
-    } catch(e) {}
-    if (isDark) {
-      document.body.classList.add('dark');
-      updateDarkToggle(true);
-    }
-  })();
 </script>
 
 </body>
