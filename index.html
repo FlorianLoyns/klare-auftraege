@@ -49,6 +49,33 @@
       --radius:10px;
       --transition:all .2s ease;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:#0f172a; --muted:#1e293b; --fg:#e2e8f0; --text:#e2e8f0;
+        --subtle:#94a3b8; --border:#334155; --border-light:#1e293b;
+        --accent-light:#1e3a57; --shadow-sm:0 1px 3px rgba(0,0,0,.3);
+        --shadow-md:0 2px 8px rgba(0,0,0,.4);
+      }
+    }
+    html.dark {
+      --bg:#0f172a; --muted:#1e293b; --fg:#e2e8f0; --text:#e2e8f0;
+      --subtle:#94a3b8; --border:#334155; --border-light:#1e293b;
+      --accent-light:#1e3a57; --shadow-sm:0 1px 3px rgba(0,0,0,.3);
+      --shadow-md:0 2px 8px rgba(0,0,0,.4);
+    }
+    html.light {
+      --bg:#ffffff; --muted:#f1f5f9; --fg:#1e293b; --text:#1e293b;
+      --subtle:#6b7280; --border:#cbd5e1; --border-light:#e2e8f0;
+      --accent-light:#e8eef5; --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+      --shadow-md:0 2px 8px rgba(0,0,0,.09);
+    }
+    .icon-btn {
+      width:38px; height:38px; border-radius:10px;
+      background:var(--muted); border:1px solid var(--border-light);
+      display:grid; place-items:center; color:var(--subtle);
+      cursor:pointer; flex-shrink:0; transition:opacity .15s;
+    }
+    .icon-btn:hover { opacity:.75; }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -398,12 +425,11 @@
 
     .app-footer{
       max-width:960px; margin:20px auto 0; padding:12px 18px;
-      border-top:1px solid var(--border-light);
       font-size:13px; color:var(--subtle); text-align:center;
     }
     .app-footer .divider{ display:none; }
-    .app-footer a{ color:inherit; text-decoration:none; }
-    .app-footer a:hover{ text-decoration:underline; }
+    .app-footer a{ color:inherit; text-decoration:none; transition: opacity .15s; }
+    .app-footer a:hover{ opacity: .65; }
     .app-footer p{ margin:0; }
 
     @keyframes fadeInUp {
@@ -420,6 +446,10 @@
     <h1>Klare Aufträge</h1>
     <div class="sub">Evidenzbasierte Vorlage nach Hattie, Bloom &amp; KMK-Anforderungsbereichen</div>
   </div>
+  <button class="icon-btn" id="theme-btn" aria-label="Farbschema umschalten" style="margin-right:18px">
+    <svg id="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <svg id="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
 </header>
 
 <div class="container">
@@ -1357,6 +1387,27 @@ function clearForm() {
     renumberTasks();
   }
 
+  // Theme toggle
+  (function() {
+    function syncThemeIcon() {
+      var isDark = document.documentElement.classList.contains('dark') ||
+        (!document.documentElement.classList.contains('light') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.getElementById('theme-icon-sun').style.display = isDark ? 'block' : 'none';
+      document.getElementById('theme-icon-moon').style.display = isDark ? 'none' : 'block';
+    }
+    try { var s = localStorage.getItem('theme'); if (s) document.documentElement.classList.add(s); } catch(e){}
+    syncThemeIcon();
+    document.getElementById('theme-btn').addEventListener('click', function() {
+      var html = document.documentElement;
+      var isDark = html.classList.contains('dark') ||
+        (!html.classList.contains('light') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      html.classList.remove('dark', 'light');
+      html.classList.add(isDark ? 'light' : 'dark');
+      try { localStorage.setItem('theme', isDark ? 'light' : 'dark'); } catch(e){}
+      syncThemeIcon();
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncThemeIcon);
+  })();
 </script>
 
 </body>
